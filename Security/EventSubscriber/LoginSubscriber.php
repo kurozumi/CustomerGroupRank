@@ -56,6 +56,7 @@ class LoginSubscriber implements EventSubscriberInterface
         $groups = $this->entityManager->getRepository(Group::class)->getQueryBuilderBySearchData($searchData)
             ->getQuery()
             ->getResult();
+
         $groups = new ArrayCollection($groups);
 
         if ($groups->count() > 0) {

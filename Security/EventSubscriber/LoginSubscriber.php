@@ -13,10 +13,8 @@
 namespace Plugin\CustomerGroupRank\Security\EventSubscriber;
 
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Entity\Customer;
-use Plugin\CustomerGroup\Entity\Group;
+use Plugin\CustomerGroupRank\Service\GroupDecisionService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
@@ -24,15 +22,13 @@ use Symfony\Component\Security\Http\SecurityEvents;
 class LoginSubscriber implements EventSubscriberInterface
 {
     /**
-     * @var EntityManagerInterface
+     * @var GroupDecisionService
      */
-    protected $entityManager;
+    protected $groupDecisionService;
 
-    public function __construct(
-        EntityManagerInterface $entityManager
-    )
+    public function __construct(GroupDecisionService $groupDecisionService)
     {
-        $this->entityManager = $entityManager;
+        $this->groupDecisionService = $groupDecisionService;
     }
 
     public static function getSubscribedEvents()
@@ -49,27 +45,6 @@ class LoginSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $searchData = [
-            'buyTimes' => $user->getBuyTimes(),
-            'buyTotal' => $user->getBuyTimes()
-        ];
-        $groups = $this->entityManager->getRepository(Group::class)->getQueryBuilderBySearchData($searchData)
-            ->getQuery()
-            ->getResult();
-
-        $groups = new ArrayCollection($groups);
-
-        if ($groups->count() > 0) {
-            /** @var Group $group */
-            $group = $groups->first();
-            if ($user->getGroups()->count() > 0) {
-                foreach($user->getGroups() as $originGroup) {
-                    $user->removeGroup($originGroup);
-                }
-            }
-            $user->addGroup($group);
-            $group->addCustomer($user);
-            $this->entityManager->flush();
-        }
+        $this->groupDecisionService->decide($user);
     }
 }

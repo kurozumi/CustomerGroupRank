@@ -1,0 +1,4 @@
+services:
+  Plugin\CustomerGroupRank\Service\GroupDecisionService:
+    arguments:
+      - '@doctrine.orm.entity_manager'

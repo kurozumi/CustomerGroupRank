@@ -31,7 +31,7 @@ class GroupDecisionServiceTest extends EccubeTestCase
     {
         parent::setUp();
 
-        $this->groupDecisionService = $this->container->get(GroupDecisionService::class);
+        $this->groupDecisionService = self::$container->get(GroupDecisionService::class);
     }
 
     public function testDecide()

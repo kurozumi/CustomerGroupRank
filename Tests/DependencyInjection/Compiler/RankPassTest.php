@@ -31,6 +31,9 @@ class RankPassTest extends TestCase
         $container->register(TestRank::class)
             ->addTag(RankPass::TAG);
 
+        $container->addCompilerPass(new RankPass());
+        $container->compile();
+
         $context = $container->get(Context::class);
         $reflection = new \ReflectionObject($context);
         $prop = $reflection->getProperty('ranks');

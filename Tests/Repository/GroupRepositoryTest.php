@@ -1,0 +1,63 @@
+<?php
+/**
+ * This file is part of CustomerGroupRank
+ *
+ * Copyright(c) Akira Kurozumi <info@a-zumi.net>
+ *
+ * https://a-zumi.net
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Plugin\CustomerGroupRank\Tests\Repository;
+
+
+use Plugin\CustomerGroup\Tests\TestCaseTrait;
+
+class GroupRepositoryTest extends \Plugin\CustomerGroup\Tests\Repository\GroupRepositoryTest
+{
+    use TestCaseTrait;
+
+    /**
+     * @param $group_times
+     * @param $group_total
+     * @param $customer_times
+     * @param $customer_total
+     * @param $expected
+     *
+     * @dataProvider conditionProvider
+     */
+    public function testランクアップ条件にマッチした会員グループが見つかるか($group_times, $group_total, $customer_times, $customer_total, $expected)
+    {
+        $group = $this->createGroup();
+        $group->setBuyTimes($group_times);
+        $group->setBuyTotal($group_total);
+
+        $customer = $this->createCustomer();
+        $customer->setBuyTimes($customer_times);
+        $customer->setBuyTotal($customer_total);
+
+        $this->entityManager->flush();
+
+        // 絞り込み条件
+        $this->searchData = [
+            'buyTimes' => $customer->getBuyTimes(),
+            'buyTotal' => $customer->getBuyTotal()
+        ];
+
+        $this->scenario();
+
+        self::assertCount($expected, $this->Results);
+    }
+
+    public function conditionProvider()
+    {
+        return [
+            [1, 1, 0, 0, 0],
+            [10, 1000, 10, 10, 1],
+            [10, 1000, 9, 1000, 1],
+            [10, 1000, 10, 1000, 1],
+        ];
+    }
+}

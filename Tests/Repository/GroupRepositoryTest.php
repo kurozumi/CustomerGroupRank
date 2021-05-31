@@ -13,12 +13,23 @@
 namespace Plugin\CustomerGroupRank\Tests\Repository;
 
 
+use Eccube\Tests\EccubeTestCase;
 use Plugin\CustomerGroup\Repository\GroupRepository;
 use Plugin\CustomerGroup\Tests\TestCaseTrait;
 
-class GroupRepositoryTest extends \Plugin\CustomerGroup\Tests\Repository\GroupRepositoryTest
+class GroupRepositoryTest extends EccubeTestCase
 {
     use TestCaseTrait;
+
+    /**
+     * @var array
+     */
+    protected $Results;
+
+    /**
+     * @var array
+     */
+    protected $searchData = [];
 
     /**
      * @var GroupRepository
@@ -30,6 +41,13 @@ class GroupRepositoryTest extends \Plugin\CustomerGroup\Tests\Repository\GroupRe
         parent::setUp();
 
         $this->groupRepository = self::$container->get(GroupRepository::class);
+    }
+
+    public function scenario()
+    {
+        $this->Results = $this->groupRepository->getQueryBuilderBySearchData($this->searchData)
+            ->getQuery()
+            ->getResult();
     }
 
     /**

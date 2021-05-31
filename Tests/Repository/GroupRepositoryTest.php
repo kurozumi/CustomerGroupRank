@@ -13,11 +13,24 @@
 namespace Plugin\CustomerGroupRank\Tests\Repository;
 
 
+use Plugin\CustomerGroup\Repository\GroupRepository;
 use Plugin\CustomerGroup\Tests\TestCaseTrait;
 
 class GroupRepositoryTest extends \Plugin\CustomerGroup\Tests\Repository\GroupRepositoryTest
 {
     use TestCaseTrait;
+
+    /**
+     * @var GroupRepository
+     */
+    protected $groupRepository;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->groupRepository = self::$container->get(GroupRepository::class);
+    }
 
     /**
      * @param $group_times

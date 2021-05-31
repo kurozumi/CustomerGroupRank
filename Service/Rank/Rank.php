@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\CustomerGroupRank\Service;
+namespace Plugin\CustomerGroupRank\Service\Rank;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -18,7 +18,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Entity\Customer;
 use Plugin\CustomerGroup\Entity\Group;
 
-class GroupDecisionService
+class Rank implements RankInterface
 {
     /**
      * @var EntityManagerInterface

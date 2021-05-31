@@ -16,22 +16,22 @@ namespace Plugin\CustomerGroupRank\Tests\Service;
 use Eccube\Entity\Customer;
 use Eccube\Tests\EccubeTestCase;
 use Plugin\CustomerGroup\Tests\TestCaseTrait;
-use Plugin\CustomerGroupRank\Service\GroupDecisionService;
+use Plugin\CustomerGroupRank\Service\Rank\Context;
 
-class GroupDecisionServiceTest extends EccubeTestCase
+class RankTest extends EccubeTestCase
 {
     use TestCaseTrait;
 
     /**
-     * @var GroupDecisionService
+     * @var Context
      */
-    protected $groupDecisionService;
+    protected $context;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->groupDecisionService = self::$container->get(GroupDecisionService::class);
+        $this->context = self::$container->get(Context::class);
     }
 
     public function testDecide()
@@ -51,7 +51,7 @@ class GroupDecisionServiceTest extends EccubeTestCase
 
         $this->entityManager->flush();
 
-        $this->groupDecisionService->decide($customer);
+        $this->context->decide($customer);
 
         $groups = $this->entityManager->find(Customer::class, $customer->getId())->getGroups();
 

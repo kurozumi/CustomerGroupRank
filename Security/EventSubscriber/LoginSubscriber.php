@@ -14,7 +14,7 @@ namespace Plugin\CustomerGroupRank\Security\EventSubscriber;
 
 
 use Eccube\Entity\Customer;
-use Plugin\CustomerGroupRank\Service\GroupDecisionService;
+use Plugin\CustomerGroupRank\Service\Rank\Context;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
@@ -22,13 +22,13 @@ use Symfony\Component\Security\Http\SecurityEvents;
 class LoginSubscriber implements EventSubscriberInterface
 {
     /**
-     * @var GroupDecisionService
+     * @var Context
      */
-    protected $groupDecisionService;
+    private $context;
 
-    public function __construct(GroupDecisionService $groupDecisionService)
+    public function __construct(Context $context)
     {
-        $this->groupDecisionService = $groupDecisionService;
+        $this->context = $context;
     }
 
     public static function getSubscribedEvents()
@@ -45,6 +45,6 @@ class LoginSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $this->groupDecisionService->decide($user);
+        $this->context->decide($user);
     }
 }

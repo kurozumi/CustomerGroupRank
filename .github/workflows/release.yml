@@ -1,4 +1,3 @@
-
 name: Packaging for EC-CUBE Plugin
 on:
   release:

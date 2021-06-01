@@ -20,5 +20,5 @@ interface RankInterface
     /**
      * @param Customer $customer
      */
-    public function decide(Customer $customer): void;
+    public function decide(Customer $customer): bool;
 }

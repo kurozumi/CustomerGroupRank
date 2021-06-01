@@ -28,8 +28,9 @@ class Context
     {
         /** @var Rank $rank */
         foreach ($this->ranks as $rank) {
-            $rank->decide($customer);
-            break;
+            if ($rank->decide($customer)) {
+                return;
+            }
         }
     }
 }

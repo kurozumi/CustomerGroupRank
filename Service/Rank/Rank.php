@@ -34,12 +34,11 @@ class Rank implements RankInterface
      * 優先度が最上位のグループを会員に設定する
      *
      * @param Customer $customer
+     * @return bool
      */
-    public function decide(Customer $customer): void
+    public function decide(Customer $customer): bool
     {
         $groups = $this->getGroups($customer);
-        $groups = new ArrayCollection($groups);
-
         if ($groups->count() > 0) {
             /** @var Group $group */
             $group = $groups->first();
@@ -51,23 +50,29 @@ class Rank implements RankInterface
             $customer->addGroup($group);
             $group->addCustomer($customer);
             $this->entityManager->flush();
+
+            return true;
         }
+
+        return false;
     }
 
     /**
      * 会員に適用可能なグループ一覧を取得
      *
      * @param Customer $customer
-     * @return array
+     * @return ArrayCollection
      */
-    protected function getGroups(Customer $customer): array
+    protected function getGroups(Customer $customer): ArrayCollection
     {
         $searchData = [
             'buyTimes' => $customer->getBuyTimes(),
             'buyTotal' => $customer->getBuyTimes()
         ];
-        return $this->entityManager->getRepository(Group::class)->getQueryBuilderBySearchData($searchData)
+        $groups = $this->entityManager->getRepository(Group::class)->getQueryBuilderBySearchData($searchData)
             ->getQuery()
             ->getResult();
+
+        return new ArrayCollection($groups);
     }
 }

@@ -46,7 +46,7 @@ class RankPassTest extends TestCase
 
 class TestRank implements RankInterface
 {
-    public function decide(Customer $customer): void
+    public function decide(Customer $customer): bool
     {
     }
 }

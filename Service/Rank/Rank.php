@@ -34,6 +34,7 @@ class Rank implements RankInterface
      * 優先度が最上位のグループを会員に設定する
      *
      * @param Customer $customer
+     * @return bool
      */
     public function decide(Customer $customer): bool
     {
@@ -60,9 +61,9 @@ class Rank implements RankInterface
      * 会員に適用可能なグループ一覧を取得
      *
      * @param Customer $customer
-     * @return array
+     * @return ArrayCollection
      */
-    protected function getGroups(Customer $customer): array
+    protected function getGroups(Customer $customer): ArrayCollection
     {
         $searchData = [
             'buyTimes' => $customer->getBuyTimes(),

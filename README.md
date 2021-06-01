@@ -7,26 +7,29 @@
 ゴールド会員、シルバー会員、ブロンズ会員などの会員グループを登録してそれぞれに購入金額と購入回数を登録しておくと、会員がログインしたときに条件にマッチした会員グループが会員に登録されます。  
 条件にマッチした会員グループが複数あった場合、優先度が最上位の会員グループが登録されます。  
 
-会員グループの優先度は会員グループ一覧ページで設定できます。設定はドラッグアンドドロップでできます。
+会員グループの優先度は会員グループ一覧ページで設定できます。  
+会員グループをドラッグアンドドロップで並べ替えるだけで設定できます。
 
 # 設定方法
 + 会員グループを作成
 + 会員グループに購入回数と購入金額を設定
 
-# 会員に会員グループが自動登録されるタイミング
+# 会員グループが会員に登録されるタイミング
 + 会員ログイン時に条件にマッチした会員グループが会員に登録されます。
 
 ## ランク昇格条件のカスタマイズ方法
 
-本プラグインはランク昇格（※会員グループの自動登録）条件を変更することができます。
+本プラグインはランク昇格（※会員グループの自動登録）条件を変更することができます。  
 デフォルトの条件は購入金額と購入回数ですが、例えば会員の最終購入日から1ヶ月過ぎていたら会員グループから場外するといったことも可能です。
 
-Customizeディレクトリに以下の実装を行う必要があります。
+Customizeディレクトリで以下の実装を行う必要があります。
 + RankInterfaceを実装したランク決定クラス。
 + services.yamlにRankInterfaceを実装したクラスを設定。priorityを1以上にすると反映されます。
 
 
 ### ランク決定クラスの実装例
+
+以下は本プラグインの実装です。
 
 ```php
 namespace Plugin\CustomerGroupRank\Service\Rank;
@@ -53,12 +56,11 @@ class Rank implements RankInterface
      * 優先度が最上位のグループを会員に設定する
      *
      * @param Customer $customer
+     * @return bool
      */
-    public function decide(Customer $customer): void
+    public function decide(Customer $customer): bool
     {
         $groups = $this->getGroups($customer);
-        $groups = new ArrayCollection($groups);
-
         if ($groups->count() > 0) {
             /** @var Group $group */
             $group = $groups->first();
@@ -70,24 +72,30 @@ class Rank implements RankInterface
             $customer->addGroup($group);
             $group->addCustomer($customer);
             $this->entityManager->flush();
+
+            return true;
         }
+
+        return false;
     }
 
     /**
      * 会員に適用可能なグループ一覧を取得
      *
      * @param Customer $customer
-     * @return array
+     * @return ArrayCollection
      */
-    protected function getGroups(Customer $customer): array
+    protected function getGroups(Customer $customer): ArrayCollection
     {
         $searchData = [
             'buyTimes' => $customer->getBuyTimes(),
             'buyTotal' => $customer->getBuyTimes()
         ];
-        return $this->entityManager->getRepository(Group::class)->getQueryBuilderBySearchData($searchData)
+        $groups = $this->entityManager->getRepository(Group::class)->getQueryBuilderBySearchData($searchData)
             ->getQuery()
             ->getResult();
+
+        return new ArrayCollection($groups);
     }
 }
 ```
@@ -97,7 +105,10 @@ class Rank implements RankInterface
 ```yaml
 services:
   Plugin\CustomerGroupRank\Service\Rank\Rank:
-    - { name: 'plugin.customer.group.rank', priority: 1 }
+    tags:
+      - { name: 'plugin.customer.group.rank', priority: 1 }
+    arguments:
+      - '@doctrine.orm.default_entity_manager'
 ```
 
 

@@ -35,11 +35,9 @@ class Rank implements RankInterface
      *
      * @param Customer $customer
      */
-    public function decide(Customer $customer): void
+    public function decide(Customer $customer): bool
     {
         $groups = $this->getGroups($customer);
-        $groups = new ArrayCollection($groups);
-
         if ($groups->count() > 0) {
             /** @var Group $group */
             $group = $groups->first();
@@ -51,7 +49,11 @@ class Rank implements RankInterface
             $customer->addGroup($group);
             $group->addCustomer($customer);
             $this->entityManager->flush();
+
+            return true;
         }
+
+        return false;
     }
 
     /**
@@ -66,8 +68,10 @@ class Rank implements RankInterface
             'buyTimes' => $customer->getBuyTimes(),
             'buyTotal' => $customer->getBuyTimes()
         ];
-        return $this->entityManager->getRepository(Group::class)->getQueryBuilderBySearchData($searchData)
+        $groups = $this->entityManager->getRepository(Group::class)->getQueryBuilderBySearchData($searchData)
             ->getQuery()
             ->getResult();
+
+        return new ArrayCollection($groups);
     }
 }

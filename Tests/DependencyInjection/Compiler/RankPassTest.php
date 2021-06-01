@@ -48,5 +48,6 @@ class TestRank implements RankInterface
 {
     public function decide(Customer $customer): bool
     {
+        return true;
     }
 }

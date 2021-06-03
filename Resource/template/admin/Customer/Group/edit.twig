@@ -1,0 +1,37 @@
+<script>
+    $(function () {
+        $('.card-body').append($('#customer_group_rank_buy_times'));
+        $('.card-body').append($('#customer_group_rank_buy_total'));
+    });
+</script>
+<div class="row mb-2" id="customer_group_rank_buy_times">
+    <div class="col-3">
+        <span>{{ '購入回数'|trans }}</span>
+    </div>
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <div>
+                    {{ form_widget(form.buyTimes) }}
+                </div>
+            </div>
+            {{ form_errors(form.buyTimes) }}
+        </div>
+    </div>
+</div>
+
+<div class="row mb-2" id="customer_group_rank_buy_total">
+    <div class="col-3">
+        <span>{{ '購入金額'|trans }}</span>
+    </div>
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <div>
+                    {{ form_widget(form.buyTotal) }}
+                </div>
+            </div>
+            {{ form_errors(form.buyTotal) }}
+        </div>
+    </div>
+</div>

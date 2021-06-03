@@ -13,10 +13,13 @@
 namespace Plugin\CustomerGroupRank\Form\Extension\Admin;
 
 
+use Eccube\Form\Type\PriceType;
 use Plugin\CustomerGroup\Form\Type\Admin\GroupType;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Range;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class GroupTypeExtension extends AbstractTypeExtension
 {
@@ -25,16 +28,24 @@ class GroupTypeExtension extends AbstractTypeExtension
         $builder
             ->add('buyTimes', NumberType::class, [
                 'label' => '購入回数',
-                'eccube_form_options' => [
-                    'auto_render' => true
-                ]
-
+                'constraints' => [
+                    new Regex([
+                        'pattern' => "/^\d+$/u",
+                        'message' => 'form_error.numeric_only',
+                    ]),
+                    new Range([
+                        'min' => 1
+                    ])
+                ],
             ])
-            ->add('buyTotal', NumberType::class, [
+            ->add('buyTotal', PriceType::class, [
                 'label' => '購入金額',
-                'eccube_form_options' => [
-                    'auto_render' => true
-                ]
+                'required' => false,
+                'constraints' => [
+                    new Range([
+                        'min' => 1
+                    ])
+                ],
             ]);
     }
 

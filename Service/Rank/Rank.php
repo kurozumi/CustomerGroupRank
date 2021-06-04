@@ -36,25 +36,14 @@ class Rank implements RankInterface
      * @param Customer $customer
      * @return bool
      */
-    public function decide(Customer $customer): bool
+    public function decide(Customer $customer): void
     {
         $groups = $this->getGroups($customer);
         if ($groups->count() > 0) {
             /** @var Group $group */
             $group = $groups->first();
-            if ($customer->getGroups()->count() > 0) {
-                foreach ($customer->getGroups() as $originGroup) {
-                    $customer->removeGroup($originGroup);
-                }
-            }
             $customer->addGroup($group);
-            $group->addCustomer($customer);
-            $this->entityManager->flush();
-
-            return true;
         }
-
-        return false;
     }
 
     /**

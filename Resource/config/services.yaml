@@ -1,0 +1,6 @@
+services:
+  Plugin\CustomerGroupRank\Service\Rank\Rank:
+    tags:
+      - { name: 'plugin.customer.group.rank', priority: 100 }
+    arguments:
+      - '@doctrine.orm.default_entity_manager'

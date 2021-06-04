@@ -20,11 +20,11 @@
 ## ランク昇格条件のカスタマイズ方法
 
 本プラグインはランク昇格（※会員グループの自動登録）条件を変更することができます。  
-デフォルトの条件は購入金額と購入回数ですが、例えば会員の最終購入日から1ヶ月過ぎていたら会員グループから場外するといったことも可能です。
+デフォルトの条件は購入金額と購入回数ですが、例えば会員の最終購入日から1ヶ月過ぎていたら会員グループから除外するといったことも可能です。
 
 Customizeディレクトリで以下の実装を行う必要があります。
 + RankInterfaceを実装したランク決定クラス。
-+ services.yamlにRankInterfaceを実装したクラスを設定。priorityを1以上にすると反映されます。
++ services.yamlにRankInterfaceを実装したクラスを設定。priorityを99以下にすると反映されます。
 
 
 ### ランク決定クラスの実装例
@@ -56,27 +56,16 @@ class Rank implements RankInterface
      * 優先度が最上位のグループを会員に設定する
      *
      * @param Customer $customer
-     * @return bool
+     * @return void
      */
-    public function decide(Customer $customer): bool
+    public function decide(Customer $customer): void
     {
         $groups = $this->getGroups($customer);
         if ($groups->count() > 0) {
             /** @var Group $group */
             $group = $groups->first();
-            if ($customer->getGroups()->count() > 0) {
-                foreach ($customer->getGroups() as $originGroup) {
-                    $customer->removeGroup($originGroup);
-                }
-            }
             $customer->addGroup($group);
-            $group->addCustomer($customer);
-            $this->entityManager->flush();
-
-            return true;
         }
-
-        return false;
     }
 
     /**
@@ -102,11 +91,13 @@ class Rank implements RankInterface
 
 ### services.yamlの設定例
 
+以下は本プラグインの設定です。
+
 ```yaml
 services:
   Plugin\CustomerGroupRank\Service\Rank\Rank:
     tags:
-      - { name: 'plugin.customer.group.rank', priority: 1 }
+      - { name: 'plugin.customer.group.rank', priority: 100 }
     arguments:
       - '@doctrine.orm.default_entity_manager'
 ```

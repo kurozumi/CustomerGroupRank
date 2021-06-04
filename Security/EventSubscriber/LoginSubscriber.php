@@ -13,6 +13,7 @@
 namespace Plugin\CustomerGroupRank\Security\EventSubscriber;
 
 
+use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Entity\Customer;
 use Plugin\CustomerGroupRank\Service\Rank\Context;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -26,9 +27,18 @@ class LoginSubscriber implements EventSubscriberInterface
      */
     private $context;
 
-    public function __construct(Context $context)
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    public function __construct(
+        Context $context,
+        EntityManagerInterface $entityManager
+    )
     {
         $this->context = $context;
+        $this->entityManager = $entityManager;
     }
 
     public static function getSubscribedEvents()
@@ -46,5 +56,6 @@ class LoginSubscriber implements EventSubscriberInterface
         }
 
         $this->context->decide($user);
+        $this->entityManager->flush();
     }
 }

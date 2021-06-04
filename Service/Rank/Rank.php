@@ -34,27 +34,16 @@ class Rank implements RankInterface
      * 優先度が最上位のグループを会員に設定する
      *
      * @param Customer $customer
-     * @return bool
+     * @return void
      */
-    public function decide(Customer $customer): bool
+    public function decide(Customer $customer): void
     {
         $groups = $this->getGroups($customer);
         if ($groups->count() > 0) {
             /** @var Group $group */
             $group = $groups->first();
-            if ($customer->getGroups()->count() > 0) {
-                foreach ($customer->getGroups() as $originGroup) {
-                    $customer->removeGroup($originGroup);
-                }
-            }
             $customer->addGroup($group);
-            $group->addCustomer($customer);
-            $this->entityManager->flush();
-
-            return true;
         }
-
-        return false;
     }
 
     /**

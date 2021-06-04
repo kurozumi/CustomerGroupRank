@@ -34,7 +34,7 @@ class Rank implements RankInterface
      * 優先度が最上位のグループを会員に設定する
      *
      * @param Customer $customer
-     * @return bool
+     * @return void
      */
     public function decide(Customer $customer): void
     {

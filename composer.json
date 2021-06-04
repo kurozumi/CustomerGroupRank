@@ -1,6 +1,6 @@
 {
   "name": "ec-cube/CustomerGroupRank",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "会員グループ管理::会員ランク管理アドオン for EC-CUBE4",
   "type": "eccube-plugin",
   "require": {

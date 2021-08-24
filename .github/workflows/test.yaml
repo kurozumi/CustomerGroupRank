@@ -12,7 +12,6 @@ jobs:
       matrix:
         eccube-versions: ['4.0', '4.1-beta2']
         php-versions: [7.1,7.2,7.3,7.4]
-        composer: ['v1', 'v2']
         database: [mysql, pgsql]
         include:
           - database: mysql
@@ -51,7 +50,7 @@ jobs:
           repository: EC-CUBE/ec-cube
           ref: ${{ matrix.eccube-versions }}
 
-      - name: Setup PHP, with composer and extensions
+      - name: Setup PHP, with composer and extensions for EC-CUBE4.0
         if: matrix.eccube-versions == '4.0'
         uses: shivammathur/setup-php@master #https://github.com/shivammathur/setup-php
         with:
@@ -65,7 +64,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-versions }}
           extensions: mbstring, xml, ctype, iconv, mysql, intl
-          tools: composer:${{ matrix.composer }}
+          tools: composer:v2
 
       - name: Get composer cache directory
         id: composer-cache
@@ -91,7 +90,6 @@ jobs:
 
       - name: Setup EC-CUBE
         run: |
-          composer compile
           bin/console e:i
         env:
           DATABASE_URL: ${{ matrix.database_url }}

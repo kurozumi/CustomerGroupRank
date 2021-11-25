@@ -26,11 +26,6 @@ class Context
 
     public function decide(Customer $customer): void
     {
-        // 会員グループが登録されていたらクリアする
-        if ($customer->getGroups()->count() > 0) {
-            $customer->getGroups()->clear();
-        }
-
         /** @var Rank $rank */
         foreach ($this->ranks as $rank) {
             $rank->decide($customer);

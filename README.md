@@ -60,6 +60,10 @@ class Rank implements RankInterface
      */
     public function decide(Customer $customer): void
     {
+        // 会員グループをクリアする
+        $customer->getGroups()->clear();
+
+        // 対象の会員ブループが見つかったら登録
         $groups = $this->getGroups($customer);
         if ($groups->count() > 0) {
             /** @var Group $group */

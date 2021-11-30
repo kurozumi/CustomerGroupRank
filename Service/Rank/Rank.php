@@ -60,7 +60,7 @@ class Rank implements RankInterface
     {
         $searchData = [
             'buyTimes' => $customer->getBuyTimes(),
-            'buyTotal' => $customer->getBuyTimes()
+            'buyTotal' => $customer->getBuyTotal()
         ];
         $groups = $this->entityManager->getRepository(Group::class)->getQueryBuilderBySearchData($searchData)
             ->getQuery()

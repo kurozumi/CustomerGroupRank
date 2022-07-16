@@ -27,11 +27,11 @@ class RankTest extends EccubeTestCase
      */
     protected $context;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->context = self::$container->get(Context::class);
+        $this->context = static::getContainer()->get(Context::class);
     }
 
     public function testDecide()

@@ -36,11 +36,11 @@ class GroupRepositoryTest extends EccubeTestCase
      */
     protected $groupRepository;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->groupRepository = self::$container->get(GroupRepository::class);
+        $this->groupRepository = static::getContainer()->get(GroupRepository::class);
     }
 
     public function scenario()

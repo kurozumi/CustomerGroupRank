@@ -4,8 +4,8 @@ env:
   PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
   PLUGIN_CODE: CustomerGroupRank
   PLUGIN_BRANCH: '4.2'
-  CUSTOMER_GROUP_CODE: CustomerGroup
-  CUSTOMER_GROUP_BRANCH: '4.2'
+  MAIN_PLUGIN_CODE: CustomerGroup
+  MAIN_PLUGIN_BRANCH: '4.2'
   APP_ENV: 'test'
   APP_DEBUG: 0
 jobs:
@@ -102,10 +102,10 @@ jobs:
 
       - name: Setup CustomerGroup
         run: |
-          git clone -b ${{ env.CUSTOMER_GROUP_BRANCH }} https://$PERSONAL_ACCESS_TOKEN:x-oauth-basic@github.com/kurozumi/CustomerGroup.git app/Plugin/${{ env.CUSTOMER_GROUP_CODE }}
-          bin/console eccube:plugin:install --code ${{ env.CUSTOMER_GROUP_CODE }}
+          git clone -b ${{ env.MAIN_PLUGIN_BRANCH }} https://$PERSONAL_ACCESS_TOKEN:x-oauth-basic@github.com/kurozumi/CustomerGroup.git app/Plugin/${{ env.MAIN_PLUGIN_CODE }}
+          bin/console eccube:plugin:install --code ${{ env.MAIN_PLUGIN_CODE }}
           bin/console cache:clear --no-warmup
-          bin/console eccube:plugin:enable --code ${{ env.CUSTOMER_GROUP_CODE }}
+          bin/console eccube:plugin:enable --code ${{ env.MAIN_PLUGIN_CODE }}
         env:
           APP_ENV: ${{ env.APP_ENV }}
           APP_DEBUG: ${{ env.APP_DEBUG }}

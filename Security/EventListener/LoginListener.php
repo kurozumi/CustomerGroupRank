@@ -1,10 +1,10 @@
 <?php
 
-namespace Plugin\CustomerGroupRank\Security\EventListener;
+namespace Plugin\CustomerGroupRank42\Security\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Entity\Customer;
-use Plugin\CustomerGroupRank\Service\Rank\Context;
+use Plugin\CustomerGroupRank42\Service\Rank\Context;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class LoginListener

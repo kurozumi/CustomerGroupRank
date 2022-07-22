@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of CustomerGroupRank
+ * This file is part of CustomerGroupRank42
  *
  * Copyright(c) Akira Kurozumi <info@a-zumi.net>
  *
@@ -10,11 +10,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\CustomerGroupRank\Form\Extension\Admin;
+namespace Plugin\CustomerGroupRank42\Form\Extension\Admin;
 
 
 use Eccube\Form\Type\PriceType;
-use Plugin\CustomerGroup\Form\Type\Admin\GroupType;
+use Plugin\CustomerGroup42\Form\Type\Admin\GroupType;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;

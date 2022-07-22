@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of CustomerGroupRank
+ * This file is part of CustomerGroupRank42
  *
  * Copyright(c) Akira Kurozumi <info@a-zumi.net>
  *
@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-$container->registerForAutoconfiguration(\Plugin\CustomerGroupRank\Service\Rank\RankInterface::class)
-    ->addTag(\Plugin\CustomerGroupRank\DependencyInjection\Compiler\RankPass::TAG);
+$container->registerForAutoconfiguration(\Plugin\CustomerGroupRank42\Service\Rank\RankInterface::class)
+    ->addTag(\Plugin\CustomerGroupRank42\DependencyInjection\Compiler\RankPass::TAG);
 
-$container->addCompilerPass(new \Plugin\CustomerGroupRank\DependencyInjection\Compiler\RankPass());
+$container->addCompilerPass(new \Plugin\CustomerGroupRank42\DependencyInjection\Compiler\RankPass());

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of CustomerGroupRank
+ * This file is part of CustomerGroupRank42
  *
  * Copyright(c) Akira Kurozumi <info@a-zumi.net>
  *
@@ -10,14 +10,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\CustomerGroupRank\Tests\DependencyInjection\Compiler;
+namespace Plugin\CustomerGroupRank42\Tests\DependencyInjection\Compiler;
 
 
 use Eccube\Entity\Customer;
 use PHPUnit\Framework\TestCase;
-use Plugin\CustomerGroupRank\DependencyInjection\Compiler\RankPass;
-use Plugin\CustomerGroupRank\Service\Rank\Context;
-use Plugin\CustomerGroupRank\Service\Rank\RankInterface;
+use Plugin\CustomerGroupRank42\DependencyInjection\Compiler\RankPass;
+use Plugin\CustomerGroupRank42\Service\Rank\Context;
+use Plugin\CustomerGroupRank42\Service\Rank\RankInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class RankPassTest extends TestCase

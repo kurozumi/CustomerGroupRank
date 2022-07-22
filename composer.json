@@ -1,12 +1,12 @@
 {
-  "name": "ec-cube/customergrouprank",
-  "version": "2.0.2",
-  "description": "会員グループ管理::会員ランク管理アドオン for EC-CUBE4",
+  "name": "ec-cube/customergrouprank42",
+  "version": "4.2.0",
+  "description": "会員グループ管理::会員ランク管理アドオン",
   "type": "eccube-plugin",
   "require": {
-    "ec-cube/plugin-installer": "~0.0.6 || ^2.0"
+    "ec-cube/plugin-installer": "^2.0"
   },
   "extra": {
-    "code": "CustomerGroupRank"
+    "code": "CustomerGroupRank42"
   }
 }

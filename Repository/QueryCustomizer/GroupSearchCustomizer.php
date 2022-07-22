@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of CustomerGroupRank
+ * This file is part of CustomerGroupRank42
  *
  * Copyright(c) Akira Kurozumi <info@a-zumi.net>
  *
@@ -10,13 +10,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\CustomerGroupRank\Repository\QueryCustomizer;
+namespace Plugin\CustomerGroupRank42\Repository\QueryCustomizer;
 
 
 use Doctrine\ORM\QueryBuilder;
 use Eccube\Doctrine\Query\QueryCustomizer;
 use Eccube\Util\StringUtil;
-use Plugin\CustomerGroup\Repository\QueryKey;
+use Plugin\CustomerGroup42\Repository\QueryKey;
 
 class GroupSearchCustomizer implements QueryCustomizer
 {

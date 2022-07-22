@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of CustomerGroupRank
+ * This file is part of CustomerGroupRank42
  *
  * Copyright(c) Akira Kurozumi <info@a-zumi.net>
  *
@@ -10,13 +10,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\CustomerGroupRank\Tests\Service;
+namespace Plugin\CustomerGroupRank42\Tests\Service;
 
 
 use Eccube\Entity\Customer;
 use Eccube\Tests\EccubeTestCase;
-use Plugin\CustomerGroup\Tests\TestCaseTrait;
-use Plugin\CustomerGroupRank\Service\Rank\Context;
+use Plugin\CustomerGroup42\Tests\TestCaseTrait;
+use Plugin\CustomerGroupRank42\Service\Rank\Context;
 
 class RankTest extends EccubeTestCase
 {

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of CustomerGroupRank
+ * This file is part of CustomerGroupRank42
  *
  * Copyright(c) Akira Kurozumi <info@a-zumi.net>
  *
@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\CustomerGroupRank;
+namespace Plugin\CustomerGroupRank42;
 
 
 use Eccube\Event\TemplateEvent;
@@ -22,12 +22,12 @@ class Event implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            '@CustomerGroup/admin/Customer/Group/edit.twig' => 'onTemplateAdminCustomerGroupEdit',
+            '@CustomerGroup42/admin/Customer/Group/edit.twig' => 'onTemplateAdminCustomerGroupEdit',
         ];
     }
 
     public function onTemplateAdminCustomerGroupEdit(TemplateEvent $event): void
     {
-        $event->addSnippet('@CustomerGroupRank/admin/Customer/Group/edit.twig');
+        $event->addSnippet('@CustomerGroupRank42/admin/Customer/Group/edit.twig');
     }
 }

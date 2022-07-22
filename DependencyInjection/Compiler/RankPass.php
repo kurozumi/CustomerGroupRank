@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of CustomerGroupRank
+ * This file is part of CustomerGroupRank42
  *
  * Copyright(c) Akira Kurozumi <info@a-zumi.net>
  *
@@ -10,10 +10,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\CustomerGroupRank\DependencyInjection\Compiler;
+namespace Plugin\CustomerGroupRank42\DependencyInjection\Compiler;
 
 
-use Plugin\CustomerGroupRank\Service\Rank\Context;
+use Plugin\CustomerGroupRank42\Service\Rank\Context;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

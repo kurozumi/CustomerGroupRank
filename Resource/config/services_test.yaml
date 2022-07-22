@@ -1,3 +1,3 @@
 services:
-  Plugin\CustomerGroupRank\Service\Rank\Context:
+  Plugin\CustomerGroupRank42\Service\Rank\Context:
     public: true

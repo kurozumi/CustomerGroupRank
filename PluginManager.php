@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of CustomerGroupRank
+ * This file is part of CustomerGroupRank42
  *
  * Copyright(c) Akira Kurozumi <info@a-zumi.net>
  *
@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\CustomerGroupRank;
+namespace Plugin\CustomerGroupRank42;
 
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -28,7 +28,7 @@ class PluginManager extends AbstractPluginManager
 
         $Plugin = $entityManager
             ->getRepository(Plugin::class)
-            ->findOneBy(['code' => 'CustomerGroup', 'enabled' => true]);
+            ->findOneBy(['code' => 'CustomerGroup42', 'enabled' => true]);
 
         if (is_null($Plugin)) {
             log_error('会員グループ管理プラグイン for EC-CUBE4が有効化されていないので有効化できません');

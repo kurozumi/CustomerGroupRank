@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of CustomerGroupRank
+ * This file is part of CustomerGroupRank42
  *
  * Copyright(c) Akira Kurozumi <info@a-zumi.net>
  *
@@ -10,13 +10,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Plugin\CustomerGroupRank\Service\Rank;
+namespace Plugin\CustomerGroupRank42\Service\Rank;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Entity\Customer;
-use Plugin\CustomerGroup\Entity\Group;
+use Plugin\CustomerGroup42\Entity\Group;
 
 class Rank implements RankInterface
 {

@@ -2,9 +2,9 @@ name: PHPStan
 on: [workflow_dispatch, pull_request]
 env:
   PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-  PLUGIN_CODE: CustomerGroupRank
+  PLUGIN_CODE: CustomerGroupRank42
   PLUGIN_BRANCH: '4.2'
-  CUSTOMER_GROUP_CODE: CustomerGroup
+  CUSTOMER_GROUP_CODE: CustomerGroup42
   CUSTOMER_GROUP_BRANCH: '4.2'
 
 jobs:
